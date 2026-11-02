@@ -1,5 +1,4 @@
 ## System Architecture & Data Flow
-The project follows a robust, end-to-end business intelligence pipeline—moving raw transactional data through a normalized relational database and structuring it for executive analytics.
 
 ```mermaid
 graph TD
@@ -46,11 +45,3 @@ graph TD
     MODEL --> BAR
     MODEL --> DONUT
     MODEL --> TBL
-Pipeline Breakdown
-Data Ingestion & Staging: Raw records from the Kaggle dataset are ingested into a staging table within MySQL.
-
-Relational Normalization (MySQL 8.0): Data is cleaned and structured into normalized 3NF tables (warehouses, products, orders, and shipments) enforced with primary and foreign key constraints.
-
-BI Modeling & ODBC Connection: Power BI Desktop connects directly via a 64-bit System ODBC DSN to build an optimized star schema and custom DAX measures.
-
-Executive Dashboard: Translates underlying operational bottlenecks into real-time KPI cards, regional demand charts, and delivery status breakdowns.
