@@ -1,3 +1,6 @@
+## System Architecture & Data Flow
+
+```mermaid
 graph TD
     %% Node Styling
     classDef source fill:#f9f9f9,stroke:#333,stroke-width:2px;
@@ -5,42 +8,40 @@ graph TD
     classDef powerbi fill:#fff3e0,stroke:#f2c811,stroke-width:2px;
     classDef visual fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
 
-    %% Data Source & Staging
-    A[📄 Raw Kaggle CSV<br>DataCoSupplyChainDataset]:::source -->|Data Ingestion| B[(🗄️ MySQL Staging<br>staging_supply_chain)]:::mysql
+    %% Data Ingestion
+    RAW[Kaggle Supply Chain CSV]:::source -->|Import & Load| STAGE[(MySQL Staging Table)]:::mysql
 
-    %% Database Normalization
-    subgraph MySQL_Database [" 🛢️ Relational Database Tier (supply_chain_analytics) "]
-        B -->|SQL Normalization & DDL| C[(warehouses)]:::mysql
-        B -->|SQL Normalization & DDL| D[(products)]:::mysql
-        B -->|SQL Normalization & DDL| E[(orders)]:::mysql
-        B -->|SQL Normalization & DDL| F[(shipments)]:::mysql
+    %% Data Engineering / Normalization
+    subgraph MySQL_Tier ["Data Engineering Tier (MySQL 8.0) "]
+        STAGE -->|Schema Normalization| W[(warehouses)]:::mysql
+        STAGE -->|Schema Normalization| P[(products)]:::mysql
+        STAGE -->|Schema Normalization| O[(orders)]:::mysql
+        STAGE -->|Schema Normalization| S[(shipments)]:::mysql
     end
 
-    %% Data Modeling & Connectivity
-    C -->|1:M Foreign Key| F
-    D -->|1:M Foreign Key| E
-    E -->|1:M Foreign Key| F
+    %% Relational Connections
+    W -.->|FK Relationship| S
+    P -.->|FK Relationship| O
+    O -.->|FK Relationship| S
 
-    %% Power BI Layer
-    subgraph PowerBI_Analytics ["Analytics & BI Tier (Power BI Desktop) "]
-        G[Windows DSN / ODBC<br>SupplyChainDSN] :::powerbi
-        H[Star Schema Data Model]:::powerbi
-        I[DAX Calculation Engine<br>Total Qty, Delay, On-Time %]:::powerbi
+    %% BI Pipeline
+    subgraph PowerBI_Tier ["Data Modeling & Analytics Tier (Power BI) "]
+        ODBC[64-bit System ODBC DSN]:::powerbi
+        MODEL[Star Schema & DAX Measures]:::powerbi
     end
 
-    F ==>|Direct Import via ODBC| G
-    G --> H
-    H --> I
+    S ==>|ODBC Connection| ODBC
+    ODBC --> MODEL
 
-    %% Executive Visual Canvas
-    subgraph Executive_Dashboard ["Visual Canvas Components "]
-        J[KPI Single Cards]:::visual
-        K[Bar Chart: Regional Demand]:::visual
-        L[Donut Chart: Delivery Status]:::visual
-        M[Table: Warehouse Bottlenecks]:::visual
+    %% Dashboard Output
+    subgraph Dashboard_Tier ["Executive Dashboard Visuals "]
+        KPI[KPI Cards]:::visual
+        BAR[Regional Demand Bar Chart]:::visual
+        DONUT[Delivery Reliability Donut Chart]:::visual
+        TBL[Warehouse Bottlenecks Table]:::visual
     end
 
-    I --> J
-    I --> K
-    I --> L
-    I --> M
+    MODEL --> KPI
+    MODEL --> BAR
+    MODEL --> DONUT
+    MODEL --> TBL
