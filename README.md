@@ -1,4 +1,18 @@
-## System Architecture & Data Flow
+# Supply Chain & Logistics Efficiency Tracker
+
+An end-to-end enterprise data analytics project building a relational data pipeline and executive performance dashboard using MySQL Workbench and Power BI Desktop.
+
+---
+
+### Live Preview & Dashboard
+* **Explore the Interactive Report / App:** [View Live Dashboard Link Here](https://your-live-deployment-link-or-portfolio-url.com)
+
+---
+
+### Dashboard Preview
+*Here is a snapshot of the completed executive Power BI canvas:*
+
+![Dashboard Preview](dashboard/dashboard_preview.png)## System Architecture & Data Flow
 
 ```mermaid
 graph TD
