@@ -5,7 +5,7 @@ An end-to-end enterprise data analytics project building a relational data pipel
 ---
 
 ### Live Preview & Dashboard
-* **Explore the Interactive Report / App:** [View Live Dashboard Link Here](https://your-live-deployment-link-or-portfolio-url.com)
+* **Explore the Interactive Report / App:** [View Live Dashboard Link Here](https://app.powerbi.com/groups/me/reports/1253426f-1738-42b8-88cd-206d8e9a4f1f/10ca1f6e1d82d7e16a4e?experience=power-bi)
 
 ---
 
