@@ -12,7 +12,8 @@ An end-to-end enterprise data analytics project building a relational data pipel
 ### Dashboard Preview
 *Here is a snapshot of the completed executive Power BI canvas:*
 
-![Dashboard Preview](dashboard/dashboard_preview.png)## System Architecture & Data Flow
+![Dashboard Preview](Screenshot%20(635).png)
+## System Architecture & Data Flow
 
 ```mermaid
 graph TD
